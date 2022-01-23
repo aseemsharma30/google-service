@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const URL = `http://localhost:8080/search`;
+const USERS_REST_API_URL = 'http://localhost:808/';
 
-class SearchEngineService{
-    response(search) {
-        axios.body(search);
-        return axios.get(URL);
-      }
+class SearchEngineService {
+
+    getUsers(){
+        return axios.get(USERS_REST_API_URL);
+    }
 }
 
 export default new SearchEngineService();
