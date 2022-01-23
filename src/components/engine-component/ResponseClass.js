@@ -1,14 +1,23 @@
 import React, { Component } from "react";
 import Header from './Header';
+import SearchEngineService from '../../services/SearchEngineService';
 
-class ResponseClass extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+class ResponseClass extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      users:[]
+    }
   }
 
+  componentDidMount(){
+      SearchEngineService.getUsers().then((response) => {
+          this.setState({ users: response.data})
+      });
+  }
+
+
     render() {
-        const {errors} = this.state;
         return (
           <div>
             <div className="outer-response">
@@ -19,6 +28,33 @@ class ResponseClass extends Component {
                   <br/>
                   <button type="submit" className="search-property-response">Search</button> <br/><br/>
                   <h6> we found this on the server.... </h6>
+
+                  <div>
+
+                      <table className = "table table-striped">
+                          <thead>
+                              <tr>
+                                  <td> Title</td>
+                                  <td> Link</td>
+
+                              </tr>
+                               </thead>
+                          <tbody>
+                              {
+                                  this.state.users.map(
+                                      user =>
+                                      <tr>
+                                           <td> {user.title}</td>
+                                           <td><a href= {user.link}  target="_blank">{user.link}</a></td>
+
+                                      </tr>
+                                  )
+                              }
+
+                          </tbody>
+                      </table>
+
+                  </div>
                   </form>
                   </center>
                 </div>
