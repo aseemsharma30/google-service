@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 
 const Search = (props) => {
   const location = useLocation();
-  const { error, isPending, data: response } = useFetch('http://localhost:8080/' + location.state.search)
+  const { error, isPending, data: response } = useFetch('https://private-search-engine-backend.herokuapp.com/' + location.state.search + '/')
 
   return (
     <div className="search-area">
