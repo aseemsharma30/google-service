@@ -1,5 +1,16 @@
 import React from 'react';
-import { Nav, Navbar, Form, FormControl } from 'react-bootstrap';
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem, NavbarText } from 'reactstrap';
 import styled from 'styled-components';
 
 const Styles = styled.div`
@@ -30,20 +41,46 @@ const Styles = styled.div`
   }
 `;
 const Header = () => (
-  <Styles >
-    <Navbar expand="lg">
-      <Navbar.Brand href="/"></Navbar.Brand>
+  <div>
+  <Navbar
+    color="light"
+    expand="md"
+    fixed="top"
+    full
+    light
+  >
+    <NavbarBrand href="/">
+      Home
+    </NavbarBrand>
+    <NavbarToggler onClick={function noRefCheck(){}} />
+    <Collapse navbar>
+      <Nav
+        className="me-auto"
+        navbar
+      >
+        <NavItem>
+          <NavLink href="/components/">
+            Sign Up
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="/components/">
+            Log In
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="https://github.com/reactstrap/reactstrap">
+            GitHub
+          </NavLink>
+        </NavItem>
+      </Nav>
+      <NavbarText>
+        Log In
+      </NavbarText>
+    </Collapse>
+  </Navbar>
+</div>
 
-      <div class="logo-image">
-      </div>
-      <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-
-        </Nav>
-      </Navbar.Collapse>
-    </Navbar>
-  </Styles>
 );
 
 export default Header;
