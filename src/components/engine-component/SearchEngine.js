@@ -11,9 +11,6 @@ import {
   Container,
   Input,
   Label,
-  Card,
-  CardBody,
-  CardTitle
  } from "reactstrap";
 //import Header from './Header';
 
