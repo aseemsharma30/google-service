@@ -1,67 +1,85 @@
-import React, { Component } from "react";
-import Header from './Header';
-import SearchEngineService from '../../services/SearchEngineService';
-
-class ResponseClass extends React.Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      users:[]
-    }
-  }
-
-  componentDidMount(){
-      SearchEngineService.getUsers().then((response) => {
-          this.setState({ users: response.data})
-      });
-  }
+import React from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
+//import Header from './Header';
+//import SearchEngineService from '../../services/SearchEngineService';
+//import useFetch from "./useFetch";
+import { Form, FormGroup, Input, Button, Container } from "reactstrap"
+import { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 
-    render() {
-        return (
-          <div>
-            <div className="outer-response">
-              <div className="inner-response">
-                <center>
-                <form>
-                  <input type="text" className="form-control" placeholder="write here.." required={true} name="username" required/>
-                  <br/>
-                  <button type="submit" className="search-property-response">Search</button> <br/><br/>
-                  <h6> we found this on the server.... </h6>
+const ResponseClass = ({ response }) => {
+	const location = useLocation();
+	const [search, setSearch] = useState('');
+	const history = useHistory();
 
-                  <div>
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setSearch(search);
 
-                      <table className = "table table-striped">
-                          <thead>
-                              <tr>
-                                  <td> Title</td>
-                                  <td> Link</td>
+		history.push({
+			pathname: '/search',
+			state: { search: search }
+		});
+	}
 
-                              </tr>
-                               </thead>
-                          <tbody>
-                              {
-                                  this.state.users.map(
-                                      user =>
-                                      <tr>
-                                           <td> {user.title}</td>
-                                           <td><a href= {user.link}  target="_blank">{user.link}</a></td>
+	return (
+		<div className="mx-auto">
+			<div className="outer-response">
+				<div className="inner-response" className="text-center">
+					<Form onSubmit={handleSubmit}>
+						<Container>
+							<FormGroup>
+								<div>
+									<Input
+										bsSize="sm"
+										type="search"
+										placeholder="Search..."
+										value={search}
+										onChange={(e) => setSearch(e.target.value)}
+										name="search"
+										required/>
+								</div>
+								</FormGroup>
+								<br/>
+								<Button color="primary" type="submit" className="search-property-response">Search</Button>
 
-                                      </tr>
-                                  )
-                              }
-
-                          </tbody>
-                      </table>
-
-                  </div>
-                  </form>
-                  </center>
-                </div>
-              </div>
-            </div>
-            );
-        }
-    }
-
-    export default ResponseClass;
+						 <br/><br/><br/><br/>
+							<h6> We found this on the server for {location.state.search}</h6>
+							<br/><br/>
+							<div>
+								<table className = "table table-striped">
+									<thead>
+										<tr>
+											<td> Title </td>
+											<td> Link </td>
+										</tr>
+									</thead>
+									<tbody>
+										{
+											response.map(
+												request =>
+												<tr>
+													<td>
+														{request.title}
+													</td>
+													<td>
+														<a href= {request.link} rel="noopener noreferrer" target="_blank">
+															{request.link}
+														</a>
+													</td>
+												</tr>
+											)
+										}
+										</tbody>
+									</table>
+								</div>
+								</Container>
+						</Form>
+					</div>
+				</div>
+			</div>
+		);
+	}
+	export default ResponseClass;
