@@ -19,7 +19,7 @@ const ResponseClass = ({ response }) => {
 		setSearch(search);
 
 		history.push({
-			pathname: '/search',
+			pathname: '/search/' + search,
 			state: { search: search }
 		});
 	}

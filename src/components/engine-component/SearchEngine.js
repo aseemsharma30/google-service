@@ -22,7 +22,7 @@ const SearchEngine = () => {
     e.preventDefault();
     setSearch(search);
     history.push({
-      pathname: '/search',
+      pathname: '/search/' + search,
       state: { search: search }
     });
   }
